@@ -79,7 +79,8 @@ Tz = Tz(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])
 pprint(simplify(Tz))
 sigma_2, sigma_3 = tensor_indices('sigma_2 sigma_3', Lorentz)                  #Define los indices del tensor
 rho_2, rho_3 = tensor_indices('rho_2 rho_3', Lorentz)                  #Define los indices del tensor
-Tr = M_03(-mu,-sigma_3)*M_02(sigma_3,sigma_2)*M_01(-sigma_2,-sigma)*G(sigma,rho)*M_01(-rho,-rho_2)*M_02(rho_2,rho_3)*M_03(-rho_3,-nu)
-pprint(simplify(Tr))
-Tr = Tr(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])
-pprint(simplify(Tr))
+#Tr = M_03(-mu,-sigma_3)*M_02(sigma_3,sigma_2)*M_01(-sigma_2,-sigma)*G(sigma,rho)*M_01(-rho,-rho_2)*M_02(rho_2,rho_3)*M_03(-rho_3,-nu)
+#pprint(simplify(Tr))
+Tr = M_02(-mu,sigma_2)*M_01(-sigma_2,-sigma)*G(sigma,rho)*M_01(-rho,-rho_2)*M_02(rho_2,-nu)
+Tr2 = Tr(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])
+pprint(simplify(Tr2))
