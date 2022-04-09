@@ -49,7 +49,7 @@ repl.update({M_03(-mu,-nu): [ [cosh(etha_3), 0 ,0,sinh(etha_3)],[0,1,0,0],[0,0,1
 pprint(M_01)
 
 pprint(' ')
-pprint(M_01(mu,-nu).replace_with_arrays(repl, [mu,nu]))
+pprint(M_01(mu,nu).replace_with_arrays(repl, [mu,nu]))
 pprint(' ')
 
 pprint(' ')
