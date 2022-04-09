@@ -12,8 +12,15 @@ from sympy import *
 from sympy.tensor.tensor import TensorIndexType, TensorHead,TensorSymmetry
 from sympy.tensor.tensor import tensor_indices
 
+import warnings
+from sympy.utilities.exceptions import SymPyDeprecationWarning
+warnings.filterwarnings("ignore")
+# message may be omitted to filter all SymPyDeprecationWarnings
+#message=r”(?s).*<regex matching the warning message>”,category=SymPyDeprecationWarning,module=r”<regex matching your module>”
 
-Lorentz = TensorIndexType('Lorentz', dummy_name='L')      #Define el tensor
+
+#Lorentz = TensorIndexType('Lorentz', dummy_name='L')      #Define el tensor
+Lorentz = TensorIndexType('Lorentz')      #Define el tensor
 asym2 = TensorSymmetry.fully_symmetric(-2)                #Tensor totalmente antisimetrico
 A = TensorHead('A', [Lorentz, Lorentz], asym2)
 mu, nu = tensor_indices('mu nu', Lorentz)                  #Define los indices del tensor
@@ -49,16 +56,24 @@ pprint(' ')
 pprint(M_01(-mu,nu).replace_with_arrays(repl, [-mu,nu]))
 pprint(' ')
 
-D = diag(1,-1,-1,-1)
-g = [list(D[0,:]),list(D[1,:]),list(D[2,:]),list(D[3,:])]
+#D = diag(1,-1,-1,-1)
+#g = [list(D[0,:]),list(D[1,:]),list(D[2,:]),list(D[3,:])]
+g = Array(diag(1,-1,-1,-1))
 G = TensorHead('G', [Lorentz, Lorentz], TensorSymmetry.no_symmetry(2))
 repl.update({G(-mu,-nu): g })
 
 #G = Lorentz.metric
 
 sigma, rho = tensor_indices('sigma rho', Lorentz)                  #Define los indices del tensor
+#T = M_01(-mu,-sigma)*G(sigma,rho)*M_01(-rho,-nu)
 T = M_01(-mu,-sigma)*G(sigma,rho)*M_01(-rho,-nu)
 pprint(T)
 pprint(type(T))
-#pprint(T(-mu,-nu).substitute_indices().replace_with_arrays(repl, [-mu,-nu]))
-pprint(simplify(T(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])))
+T1 = T(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])
+pprint(simplify(T1))
+Ty = M_02(-mu,-sigma)*M_02(sigma,-nu)
+Tz = M_03(-mu,-sigma)*M_03(sigma,-nu)
+Ty = Ty(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])
+pprint(simplify(Ty))
+Tz = Tz(-mu,-nu).replace_with_arrays(repl, [-mu,-nu])
+pprint(simplify(Tz))
