@@ -53,6 +53,10 @@ pprint(M_01(mu,nu).replace_with_arrays(repl, [mu,nu]))
 pprint(' ')
 
 pprint(' ')
+pprint((M_01(mu,nu)*P(-nu)).replace_with_arrays(repl, [mu]))
+pprint(" ")
+
+pprint(' ')
 pprint(M_01(-mu,nu).replace_with_arrays(repl, [-mu,nu]))
 pprint(' ')
 
